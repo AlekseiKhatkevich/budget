@@ -26,15 +26,23 @@ class ApiDataLoader:
 
         return response.json()
 
-    def get_data(self, raw_data, key_field):
+    @staticmethod
+    def get_data(raw_data, key_field):
         """
         """
         return raw_data[key_field]
 
-    def convert_data(self, data, conversion):
+    @staticmethod
+    def convert_data(data, conversion):
         """
         """
-        pass
+        new_data = []
+        for element in data:
+            for k, v in element.items():
+                k = conversion.get(k, k)
+                new_data.append({k: v})
+
+        return new_data
 
     def get_data_from_api(self, url, payload, key_field='data', conversion=None):
         """
@@ -42,6 +50,9 @@ class ApiDataLoader:
         url = URL(url)
         raw_data = self.get_raw_data(url, payload)
         data = self.get_data(raw_data, key_field)
+
+        if conversion is not None:
+            return self.convert_data(data, conversion)
 
         return data
 
