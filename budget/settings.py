@@ -24,6 +24,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # сторонние приложения
+    'rest_framework',
+
+    # приложения проекта
+    'load_api.apps.LoadApiConfig',
 ]
 
 MIDDLEWARE = [
@@ -63,9 +69,18 @@ WSGI_APPLICATION = 'budget.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': 'localhost',
+        'PORT': 5432,
+        'USER': 'postgres',
+        'PASSWORD': '1q2w3e',
+        'NAME': 'budget',
+        'CONN_MAX_AGE': None,
+        'TEST': {
+            'NAME': 'budget_tests',
+            'SERIALIZE': False,
+        },
+    },
 }
 
 

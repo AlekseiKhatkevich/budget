@@ -33,7 +33,8 @@ class Budget(models.Model):
         "Код",
         max_length=8,
         blank=False,
-        null=False)
+        null=False,
+    )
     name = models.TextField(
         "Полное наименование",
         max_length=2000,
@@ -48,15 +49,15 @@ class Budget(models.Model):
         on_delete=models.SET_NULL,
     )
     startdate = models.DateTimeField(
-        "Дата начала действиязаписи",
+        "Дата начала действия записи",
         blank=False,
         null=False,
-        default=datetime.datetime.now
+        default=datetime.datetime.now,
     )
     enddate = models.DateTimeField(
-        "Дата окончаниядействия записи",
+        "Дата окончания действия записи",
         blank=True,
-        null=True
+        null=True,
     )
     status = models.CharField(
         "Статус записи",
@@ -64,7 +65,7 @@ class Budget(models.Model):
         choices=KBKStatus.choices,
         blank=False,
         null=False,
-        default=KBKStatus.ACTIVE
+        default=KBKStatus.ACTIVE,
     )
     budgettype = models.CharField(
         "Тип бюджета",
@@ -72,7 +73,7 @@ class Budget(models.Model):
         choices=BudgetType.choices,
         blank=False,
         null=False,
-        default=BudgetType.OTHER
+        default=BudgetType.OTHER,
     )
 
     class Meta:
@@ -90,32 +91,31 @@ class GlavBudgetClass(models.Model):
         "Код",
         max_length=3,
         blank=False,
-        null=False
+        null=False,
     )  # ! если не будут пересекаться добавить:, unique=True
     name = models.TextField(
         "Сокращенное наименование",
         max_length=254,
         blank=True,
-        null=True
+        null=True,
     )
     startdate = models.DateTimeField(
-        "Дата начала действиязаписи",
+        "Дата начала действия записи",
         blank=False,
         null=False,
-        default=datetime.datetime.now
+        default=datetime.datetime.now,
     )
     enddate = models.DateTimeField(
-        "Дата окончаниядействия записи",
-        null=True
+        "Дата окончания действия записи",
+        null=True,
     )
     budget = models.ForeignKey(
         Budget,
         verbose_name="Бюджет",
         blank=False,
         null=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
-
     # tofkcode
     # ppocode
     # dateinclusion = models.DateTimeField("Дата включения
@@ -123,6 +123,7 @@ class GlavBudgetClass(models.Model):
     # dateexclusion = models.DateTimeField("Дата исключения
     # кода")
     # year = models.DateField("Год")
+
     class Meta:
         verbose_name = 'Справочник главы по бюджетной классификации'
         verbose_name_plural = 'Справочники главы по бюджетной классификации'
